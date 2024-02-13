@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} dark`}>
         <AuthProider>
-          {children}
+          <div className="flex-1">{children}</div>
           <Toaster />
           <Footer/>
         </AuthProider>        
