@@ -208,22 +208,23 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                                         </div>
                                     )}
 
-                                    <BookingInfo booking={{
-                                        barbershop: barbershop,
-                                        date:
-                                            date &&
-                                                hour ?
-                                                setMinutes(setHours(date, Number(hour.split(":")[0])), Number(hour.split(":")[1])) : undefined,
-                                        service: service
-                                    }} />
-
-                                    <SheetFooter className="px-5">
-                                        <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
-                                            {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                            Confirmar Reserva
-                                        </Button>
-                                    </SheetFooter>
-
+                                    <div className="py-6 px-5 border-t border-solid-border-secondary gap-3 flex flex-col">
+                                        <BookingInfo booking={{
+                                            barbershop: barbershop,
+                                            date:
+                                                date &&
+                                                    hour ?
+                                                    setMinutes(setHours(date, Number(hour.split(":")[0])), Number(hour.split(":")[1])) : undefined,
+                                            service: service
+                                        }} />
+                                        
+                                        <SheetFooter className="px-5">
+                                            <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
+                                                {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                                Confirmar Reserva
+                                            </Button>
+                                        </SheetFooter>
+                                    </div>
                                 </SheetContent>
                             </Sheet>
                         </div>
