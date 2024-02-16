@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
+import BookingInfo from "./booking-info";
 
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
@@ -79,8 +80,8 @@ const BookingItem = ({booking} : BookingItemProps) => {
                 </Card>     
             </SheetTrigger>      
 
-            <SheetContent px-0>
-                <SheetHeader className="text-left pb-6 border-b border-solid border-secondary">
+            <SheetContent className="px-0">
+                <SheetHeader className="px-5 text-left pb-6 border-b border-solid border-secondary">
                     <SheetTitle>Informações da Reserva</SheetTitle>
                 </SheetHeader>
 
@@ -89,9 +90,6 @@ const BookingItem = ({booking} : BookingItemProps) => {
                         <Image 
                             src="/barbershop-map.png"
                             fill
-                            // style={{
-                            //     objectFit: 'contain'
-                            // }}
                             alt={booking.service.name}
                         />
 
@@ -117,37 +115,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
                         {isBookingConfirm ? "Confirmado" : "Finalizado"}
                     </Badge>
 
-                    <Card>
-                        <CardContent className="p-3 gap-3 flex flex-col">
-                            <div className="flex justify-between">
-                                <h2 className="font-bold">{booking.service.name}</h2>
-                                <h3 className="font-bold text-sm">
-                                    {Intl.NumberFormat(
-                                        "pt-BR", {style: "currency",currency: "BRL",
-                                            }).format(Number(booking.service.price))}
-                                </h3>                                
-                            </div>
-                            
-                            <div className="flex justify-between">
-                                <h3 className="text-gray-400 text-sm">Data</h3>
-                                <h4 className="text-sm">
-                                    {format(booking.date, "dd 'de' MMMM", {
-                                        locale: ptBR,
-                                    })}
-                                </h4>
-                            </div>
-                            <div className="flex justify-between">
-                               <h3 className="text-gray-400 text-sm">Horário</h3>
-                               <h4 className="text-sm">
-                                    {format(booking.date,'hh:mm')}
-                                </h4>
-                            </div>
-                            <div className="flex justify-between">
-                                <h3 className="text-gray-400 text-sm">Barbearia</h3>
-                                <h4 className="text-sm">{booking.barbershop.name}</h4>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <BookingInfo booking={booking} />
 
                     <SheetFooter className="flex-row gap-3 mt-6">
                         <SheetClose>
