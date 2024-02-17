@@ -1,4 +1,5 @@
 "use client"
+
 import { Button } from "@/app/_components/ui/button";
 import { Calendar } from "@/app/_components/ui/calendar";
 import { Card, CardContent } from "@/app/_components/ui/card";
@@ -45,7 +46,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         }
 
         refreshAvailableHours();
-    }, [date])
+    }, [date, barbershop.id])
 
     const handleDateClick = (date: Date | undefined) => {
         setDate(date);
