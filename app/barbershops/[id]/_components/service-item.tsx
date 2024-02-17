@@ -25,9 +25,8 @@ interface ServiceItemProps {
 
 const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps) => {
     const router = useRouter();
-
     const { data } = useSession();
-
+    const [isLoginLoading,setIsLoginLoading] = useState(false);
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [hour, setHour] = useState<string | undefined>()
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
@@ -58,12 +57,20 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     }
 
     const handleBookingClick = async () => {
-        if (!isAuthenticated) {
-            return await signIn("google")
-        }
-        // TODO abrir modal de agendamento
+        setIsLoginLoading(!isAuthenticated);
+        if (!isAuthenticated) await signIn("google").then(() => {
+            toast("Necessário efetuar o login!");
+            setIsLoginLoading(false);
+        })
+        .catch((e) => {
+            console.error(e.message)
+        })
         
         setSheetIsOpen(true);
+
+        <SheetTrigger asChild>
+            Agendar
+        </SheetTrigger>
     }
 
     const handleBookingSubmit = async () => {
@@ -88,7 +95,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             setSheetIsOpen(false);
             setHour(undefined);
             setDate(undefined);
-            toast("Reserva realizada com sucesso!", {
+            toast("Agendamento realizado com sucesso!", {
                 description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
                     locale: ptBR,
                 }),
@@ -150,11 +157,17 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                             }).format(Number(service.price))}</p>
 
                             <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
-                                <SheetTrigger asChild>
+                                {/* <SheetTrigger asChild>
                                     <Button variant="secondary" onClick={handleBookingClick}>
                                         Agendar
                                     </Button>
-                                </SheetTrigger>
+                                </SheetTrigger> */}
+
+                                <Button variant="secondary" onClick={handleBookingClick}>
+                                    {isLoginLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                    Agendar
+                                </Button>
+
 
                                 <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
