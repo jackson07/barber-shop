@@ -57,11 +57,13 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         setHour(time)
     }
 
-    const handleBookingClick = () => {
+    const handleBookingClick = async () => {
         if (!isAuthenticated) {
-            return signIn("google")
+            return await signIn("google")
         }
         // TODO abrir modal de agendamento
+        
+        setSheetIsOpen(true);
     }
 
     const handleBookingSubmit = async () => {
@@ -147,7 +149,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                                 style: "currency", currency: "BRL",
                             }).format(Number(service.price))}</p>
 
-                            <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
+                            <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
                                 <SheetTrigger asChild>
                                     <Button variant="secondary" onClick={handleBookingClick}>
                                         Agendar
