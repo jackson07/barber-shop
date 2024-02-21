@@ -26,24 +26,25 @@ interface BookingItemProps {
     }>;
 }
 
-const BookingItem = ({booking} : BookingItemProps) => {
-    const [isDeleteLoading,setIsDeleteLoading] = useState(false);
-    const isBookingConfirm = isFuture(booking.date);    
+const BookingItem = ({ booking }: BookingItemProps) => {
+    const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+    const isBookingConfirm = isFuture(booking.date);
 
     const handleCancelClick = async () => {
-        setIsDeleteLoading(true)
+        if (!isBookingConfirm) return;
+        setIsDeleteLoading(true);
         try {
             await cancelBooking(booking.id);
 
             toast.success("Reserva cancelada com sucesso!");
         } catch (error) {
-            console.error(error);            
+            console.error(error);
         } finally {
-            setIsDeleteLoading(false)
+            setIsDeleteLoading(false);
         }
     };
 
-    return ( 
+    return (
         <Sheet>
             <SheetTrigger asChild>
                 <Card className="min-w-full">
@@ -56,7 +57,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
                             </Badge>
 
                             <h2 className="font-bold">{booking.service.name}</h2>
-                            
+
                             <div className="flex items-center gap-2">
                                 <Avatar className="h-6 w-6">
                                     <AvatarImage src={booking.barbershop.imageUrl} />
@@ -77,8 +78,8 @@ const BookingItem = ({booking} : BookingItemProps) => {
                             <p className="text-sm">{format(booking.date, "hh:mm")}</p>
                         </div>
                     </CardContent>
-                </Card>     
-            </SheetTrigger>      
+                </Card>
+            </SheetTrigger>
 
             <SheetContent className="px-0">
                 <SheetHeader className="px-5 text-left pb-6 border-b border-solid border-secondary">
@@ -87,7 +88,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
 
                 <div className="px-5">
                     <div className="relative h-[180px] w-full mt-6">
-                        <Image 
+                        <Image
                             src="/barbershop-map.png"
                             fill
                             alt={booking.service.name}
@@ -123,34 +124,36 @@ const BookingItem = ({booking} : BookingItemProps) => {
                         </SheetClose>
 
                         <AlertDialog>
-                        <AlertDialogTrigger>
-                            <Button disabled={!isBookingConfirm || isDeleteLoading} className="w-full" variant="destructive">                                
-                                {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                Cancelar Reserva
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent className="w-[90%]">
-                            <AlertDialogHeader>
-                            <AlertDialogTitle>Deseja mesmo cancelar a reserva?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Uma vez cancelada, não será possível reverter essa ação.
-                            </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter className="flex-row gap-3">
-                            <AlertDialogCancel className="w-full gap-3 mt-0">Voltar</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleCancelClick} className="w-full gap-3">
-                                {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                Confirmar
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
+                            <AlertDialogTrigger>
+                                <Button disabled={!isBookingConfirm || isDeleteLoading} className="w-full" variant="destructive">
+                                    {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                    Cancelar Reserva
+                                </Button>
+                            </AlertDialogTrigger>
+                            {isBookingConfirm &&
+                                <AlertDialogContent className="w-[90%]">
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Deseja mesmo cancelar a reserva?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            Uma vez cancelada, não será possível reverter essa ação.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter className="flex-row gap-3">
+                                        <AlertDialogCancel className="w-full gap-3 mt-0">Voltar</AlertDialogCancel>
+                                        <AlertDialogAction onClick={handleCancelClick} className="w-full gap-3">
+                                            {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                            Confirmar
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            }
                         </AlertDialog>
 
                     </SheetFooter>
                 </div>
-            </SheetContent>      
-       </Sheet>
+            </SheetContent>
+        </Sheet>
     );
 }
- 
+
 export default BookingItem;
