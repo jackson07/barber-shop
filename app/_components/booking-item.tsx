@@ -87,7 +87,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                 </SheetHeader>
 
                 <div className="px-5">
-                    <div className="relative h-[180px] w-full mt-6">
+                    <div className="relative h-[180px] mt-6">
                         <Image
                             src="/barbershop-map.png"
                             fill
@@ -101,7 +101,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                                         <AvatarImage src={booking.barbershop.imageUrl} />
                                     </Avatar>
 
-                                    <div className="">
+                                    <div className="overflow-hidden text-ellipsis text-nowrap">
                                         <h2>{booking.barbershop.name}</h2>
                                         <h3 className="text-xs overflow-hidden text-nowrap  text-ellipsis">{booking.barbershop.address}</h3>
                                     </div>
