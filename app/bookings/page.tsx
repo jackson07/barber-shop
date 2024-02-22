@@ -40,9 +40,6 @@ const BookingPage = async () => {
         })
     ])
 
-    // const confirmedBookings = bookings.filter(booking => isFuture(booking.date))
-    // const finishedBookings  = bookings.filter(booking => isPast(booking.date))
-
     return (
         <>
             <Header />

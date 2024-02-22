@@ -13,9 +13,9 @@ import { cancelBooking } from "../_actions/cancel-booking";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
 import BookingInfo from "./booking-info";
+import PhoneInfo from "./phone-info";
 
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
@@ -43,6 +43,8 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             setIsDeleteLoading(false);
         }
     };
+
+    const phones = booking.barbershop.phone?.split('/*/');
 
     return (
         <Sheet>
@@ -118,13 +120,18 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
                     <BookingInfo booking={booking} />
 
+                    {phones && phones.map((phone, index) => (
+                    <div key={index}>
+                        <PhoneInfo phone={phone}/>
+                    </div>))}
+
                     <SheetFooter className="flex-row gap-3 mt-6">
-                        <SheetClose>
+                        <SheetClose className="w-full">
                             <Button className="w-full" variant="secondary">Voltar</Button>
                         </SheetClose>
 
                         <AlertDialog>
-                            <AlertDialogTrigger>
+                            <AlertDialogTrigger className="w-full">
                                 <Button disabled={!isBookingConfirm || isDeleteLoading} className="w-full" variant="destructive">
                                     {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                     Cancelar Reserva

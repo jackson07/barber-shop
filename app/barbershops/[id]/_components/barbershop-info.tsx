@@ -22,7 +22,7 @@ const BarberShopInfo = ({barbershop}:BarberShopInfoProps) => {
         <div>
             <div className="h-[250px] w-full relative">
                 <Button 
-                    size="icon" 
+                    size="icon"
                     variant="outline" 
                     className="z-50 absolute top-4 left-4"
                     onClick={handleBackClick}
@@ -67,7 +67,7 @@ const BarberShopInfo = ({barbershop}:BarberShopInfoProps) => {
                 </div>
                 <div className="flex items-center gap-1 mt-2">
                     <StarIcon className="text-primary fill-primary" size={18}/>
-                    <p className="text-sm">5,0(899 avaliacoes)</p>
+                    <p className="text-sm">5,0 (899 avaliações)</p>
                 </div>
             </div>
         </div>
