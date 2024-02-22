@@ -101,9 +101,9 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                                         <AvatarImage src={booking.barbershop.imageUrl} />
                                     </Avatar>
 
-                                    <div className="overflow-hidden text-ellipsis text-nowrap">
+                                    <div className="overflow-hidden text-ellipsis text-nowrap text-xs flex flex-col justify-between">
                                         <h2>{booking.barbershop.name}</h2>
-                                        <h3 className="text-xs overflow-hidden text-nowrap  text-ellipsis">{booking.barbershop.address}</h3>
+                                        <h3 className="text-xs overflow-hidden text-wrap text-ellipsis">{booking.barbershop.address}</h3>
                                     </div>
                                 </CardContent>
                             </Card>
