@@ -83,7 +83,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                 </Card>
             </SheetTrigger>
 
-            <SheetContent className="px-0">
+            <SheetContent className="px-0 overflow-y-auto [&::-webkit-scrollbar]:hidden">
                 <SheetHeader className="px-5 text-left pb-6 border-b border-solid border-secondary">
                     <SheetTitle>Informações da Reserva</SheetTitle>
                 </SheetHeader>
