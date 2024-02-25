@@ -44,7 +44,7 @@ const BarberShopItem = ({ barbershop }:BarbershopItemProps) => {
                 <div className="px-3 pb-3">
                     <h2 className="font-bold mt-2 overflow-hidden text-ellipsis text-nowrap">{barbershop.name}</h2>
                     <p className="text-sm text-gray-400 overflow-hidden text-ellipsis text-nowrap">{barbershop.address}</p>
-                    <Button variant="secondary" className="w-full mt-3" onClick={handleBookingClick}>Reservar</Button>
+                    <Button variant="secondary" className="w-full mt-3" onClick={handleBookingClick}>Conhecer</Button>
                 </div>
             </CardContent>
         </Card>
