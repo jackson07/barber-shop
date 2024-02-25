@@ -28,7 +28,7 @@ const PhoneInfo = ({phone}:PhoneInfoProps) => {
                 <Smartphone className="w-6 h-6" />
                 <p>{phone}</p>
             </div>
-            <Button variant="outline" className={copied ? "text-xs" : ""} onClick={handleCopyClick}>{copied ? 'Copiado!' : 'Copiar'}</Button>
+            <Button variant="outline" className={copied ? "text-xs p-3" : ""} onClick={handleCopyClick}>{copied ? 'Copiado!' : 'Copiar'}</Button>
         </div>
     );
 }
