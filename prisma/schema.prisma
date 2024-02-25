@@ -54,11 +54,12 @@ model VerificationToken {
 }
 
 model Barbershop {
-  id       String    @id @default(uuid())
-  name     String
-  address  String
-  imageUrl String
-  phone    String?
+  id          String    @id @default(uuid())
+  name        String
+  address     String
+  imageUrl    String
+  phone       String?
+  description String
   bookings Booking[]
   services Service[]
 }
