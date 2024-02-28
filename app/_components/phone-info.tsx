@@ -23,7 +23,7 @@ const PhoneInfo = ({phone}:PhoneInfoProps) => {
     if(!phone) return;    
 
     return (        
-        <div className="flex items-center justify-between my-3">
+        <div className="flex items-center justify-between my-3 max-w-[460px]">
             <div className="flex items-center gap-1 text-sm" ref={textRef}>
                 <Smartphone className="w-6 h-6" />
                 <p>{phone}</p>

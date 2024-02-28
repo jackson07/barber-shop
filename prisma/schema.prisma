@@ -54,14 +54,15 @@ model VerificationToken {
 }
 
 model Barbershop {
-  id          String    @id @default(uuid())
+  id          String        @id @default(uuid())
   name        String
   address     String
   imageUrl    String
-  phone       String?
+  phone       String
   description String
-  bookings Booking[]
-  services Service[]
+  bookings    Booking[]
+  services    Service[]
+  openingHour OpeningHour[]
 }
 
 model Booking {
@@ -82,6 +83,15 @@ model Service {
   name         String
   description  String
   price        Decimal    @db.Decimal(10, 2)
-  imageUrl    String
+  imageUrl     String
   bookings     Booking[]
+}
+
+model OpeningHour {
+  id           String     @id @default(uuid())
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  day          Int
+  dateStart    DateTime   @db.Timestamp
+  dateEnd      DateTime   @db.Timestamp
 }

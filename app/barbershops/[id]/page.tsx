@@ -4,8 +4,10 @@ import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOption } from "@/app/_lib/auth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/_components/ui/tabs";
-import { Button } from "@/app/_components/ui/button";
 import PhoneInfo from "@/app/_components/phone-info";
+import { redirect } from "next/navigation";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface BarbershopDetailsPageProps {
     params: {
@@ -16,8 +18,7 @@ interface BarbershopDetailsPageProps {
 const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
     const session = await getServerSession(authOption)
     if (!params.id) {
-        // TODO retornar a homepage
-        return null;
+        return redirect('/')
     }
 
     const barbershop = await db.barbershop.findUnique({
@@ -25,15 +26,20 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
             id: params.id,
         },
         include: {
-            services: true
+            services: true,
+            openingHour: true,
         }
     });
 
     if (!barbershop) {
-        // TODO retornar a homepage
-        return null;
+        return redirect('/')
     }
     const phones = barbershop.phone?.split('/*/');
+
+    function getWeekdayName(dayNumber: number): string {
+        const weekdays = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+        return weekdays[dayNumber] || '';
+    }
 
     return (
         <div>
@@ -62,14 +68,32 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
 
                         <div className="px-5 pb-4 border-b border-solid border-secondary">
                             {phones && phones.map((phone, index) => (
-                            <div key={index}>
-                                <PhoneInfo phone={phone}/>
-                            </div>))}
+                                <div key={index}>
+                                    <PhoneInfo phone={phone} />
+                                </div>))}
+                        </div>
+
+                        <div className="px-5 flex flex-col gap-4 max-w-[500px] pb-5">
+                            <h2 className="text-gray-400 uppercase text-xs font-bold">Horário de Funcionamento</h2>
+                            <ul>
+                                {barbershop.openingHour.map(hour => (
+                                    <li key={hour.id} className="flex justify-between py-2" >
+                                        <span className="font-semibold text-gray-400 uppercase text-xs">{getWeekdayName(hour.day)}</span>
+                                        <span>
+                                            {format(hour.dateStart, "HH:mm", {
+                                                locale: ptBR,
+                                            })} - {format(hour.dateEnd, "HH:mm", {
+                                                locale: ptBR,
+                                            })}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </TabsContent>
             </Tabs>
-        </div>
+        </div >
     )
 
 }
