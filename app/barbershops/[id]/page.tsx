@@ -41,6 +41,11 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
         return weekdays[dayNumber] || '';
     }
 
+    function adjustDate(dateStr: string): Date {
+        const date = new Date(dateStr);
+        return new Date(date.getTime());;
+    }
+
     return (
         <div>
             <BarberShopInfo barbershop={barbershop} />
@@ -80,9 +85,9 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
                                     <li key={hour.id} className="flex justify-between py-2" >
                                         <span className="font-semibold text-gray-400 uppercase text-xs">{getWeekdayName(hour.day)}</span>
                                         <span>
-                                            {format(hour.dateStart, "HH:mm", {
+                                            {format(adjustDate(hour.dateStart.toISOString()), "HH:mm", {
                                                 locale: ptBR,
-                                            })} - {format(hour.dateEnd, "HH:mm", {
+                                            })} - {format(adjustDate(hour.dateEnd.toISOString()), "HH:mm", {
                                                 locale: ptBR,
                                             })}
                                         </span>
