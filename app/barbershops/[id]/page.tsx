@@ -43,7 +43,7 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
 
     function adjustDate(dateStr: string): Date {
         const date = new Date(dateStr);
-        return new Date(date.getTime());;
+        return new Date(date.getTime()- (3 * 3600000));;
     }
 
     return (
