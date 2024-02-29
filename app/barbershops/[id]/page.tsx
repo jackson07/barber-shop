@@ -27,13 +27,18 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
         },
         include: {
             services: true,
-            openingHour: true,
+            openingHour: true
         }
     });
-
+ 
     if (!barbershop) {
         return redirect('/')
     }
+
+    if (barbershop.openingHour) {
+        barbershop.openingHour.sort((a, b) => a.day - b.day);
+    }
+
     const phones = barbershop.phone?.split('/*/');
 
     function getWeekdayName(dayNumber: number): string {
@@ -43,7 +48,7 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
 
     function adjustDate(dateStr: string): Date {
         const date = new Date(dateStr);
-        return new Date(date.getTime()- (3 * 3600000));;
+        return new Date(date.getTime() - (3 * 3600000));;
     }
 
     return (
