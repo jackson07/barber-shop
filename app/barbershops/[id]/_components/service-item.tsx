@@ -158,17 +158,10 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                             }).format(Number(service.price))}</p>
 
                             <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
-                                {/* <SheetTrigger asChild>
-                                    <Button variant="secondary" onClick={handleBookingClick}>
-                                        Agendar
-                                    </Button>
-                                </SheetTrigger> */}
-
                                 <Button variant="secondary" onClick={handleBookingClick}>
                                     {isLoginLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                     Agendar
                                 </Button>
-
 
                                 <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
