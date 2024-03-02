@@ -5,6 +5,9 @@ import RoleItem from "./_components/role-item";
 
 const Users = async () => {
     const users = await db.user.findMany({
+        orderBy:{
+            name: 'asc'
+        }
     });
 
     return (
