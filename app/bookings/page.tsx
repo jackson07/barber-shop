@@ -8,7 +8,6 @@ import { authOption } from "../_lib/auth";
 const BookingPage = async () => {
     const session = await getServerSession(authOption);
 
-    //TODO solicitar login
     if(!session?.user){
         redirect("/")
     }

@@ -15,9 +15,8 @@ export const updateUser = async (params: UpdateUsersParams) => {
     },
     data: {
         role: params.role,
-    }
+    }    
   });
 
-  revalidatePath("/");
   revalidatePath("/users");
 };

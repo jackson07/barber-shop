@@ -3,6 +3,9 @@ import { withAuth } from "next-auth/middleware";
 export default withAuth({
   callbacks: {
     authorized: async ({ req, token }) => {
+      if (req.nextUrl.pathname.startsWith("/bookings")) 
+        return !!token?.id;
+
       if (req.nextUrl.pathname.startsWith("/users")) 
         return token?.role === "admin";
 
@@ -13,5 +16,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/users"]
+  matcher: ["/users","/bookings"]
 };
