@@ -57,15 +57,15 @@ async function seedDatabase() {
         ];
 
         const phones = [
-            "(47) 98204-5104",
+            "(47) 98204-5104 /*/ (47) 98304-5104",
             "(48) 88224-7504",
             "(47) 78254-5502",
             "(47) 68264-5203",
             "(48) 58274-5106",
-            "(48) 48294-5203",
+            "(48) 48294-5203 /*/ (47) 98224-5104",
             "(47) 38224-5508",
             "(48) 28234-5806",
-            "(47) 18244-5705",
+            "(47) 18244-5705 /*/ (47) 98204-5604",
             "(48) 98254-5602",
         ];
 
@@ -123,13 +123,13 @@ async function seedDatabase() {
 
         // Horário de funcionamento para as barbearias
         const openingHours = [
-            { day: 1, dateStart: 9, dateEnd: 21 }, // Segunda-feira
-            { day: 2, dateStart: 9, dateEnd: 21 }, // Terça-feira
-            { day: 3, dateStart: 9, dateEnd: 21 }, // Quarta-feira
-            { day: 4, dateStart: 9, dateEnd: 21 }, // Quinta-feira
-            { day: 5, dateStart: 9, dateEnd: 21 }, // Sexta-feira
-            { day: 6, dateStart: 9, dateEnd: 21 }, // Sábado
-            { day: 0, dateStart: null, dateEnd: null }, // Domingo (Fechado)
+            { day: 1, }, // Segunda-feira
+            { day: 2, }, // Terça-feira
+            { day: 3, }, // Quarta-feira
+            { day: 4, }, // Quinta-feira
+            { day: 5, }, // Sexta-feira
+            { day: 6, }, // Sábado
+            { day: 0, }, // Domingo (Fechado)
         ];
 
         // Criar 10 barbearias com nomes e endereços fictícios
@@ -170,8 +170,8 @@ async function seedDatabase() {
                 await prisma.openingHour.create({
                     data: {
                         day: openingHour.day,
-                        dateStart: new Date('1970-01-01T09:00:00Z'),
-                        dateEnd: new Date('1970-01-01T21:00:00Z'),
+                        dateStart: new Date('1970-01-01T12:00:00Z'),
+                        dateEnd: new Date('1970-01-01T00:00:00Z'),
                         barbershop: {
                             connect: {
                                 id: barbershop.id,
