@@ -86,6 +86,14 @@ const SideMenu = () => {
                         </Link>
                     </Button>
                 )}
+                {data?.user.role === 'admin' && (
+                    <Button variant="outline" className="justify-start" asChild>
+                        <Link href="/users">
+                            <UserIcon size={18} className="mr-2 " />
+                            Usuários
+                        </Link>
+                    </Button>
+                )}
             </div>
         </>
     );
