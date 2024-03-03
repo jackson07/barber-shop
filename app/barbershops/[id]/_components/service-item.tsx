@@ -74,13 +74,12 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         </SheetTrigger>
     }
 
-    const handleBookingSubmit = async () => {
+    const handleBookingSubmit = async () => {        
         setSubmitIsLoading(true);
         try {
             if (!hour || !date || !data?.user) {
                 return;
             }
-
             const dateHour = Number(hour.split(":")[0]);
             const dateMinutes = Number(hour.split(":")[1]);
 
@@ -90,7 +89,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                 serviceId: service.id,
                 barbershopId: barbershop.id,
                 date: newDate,
-                userId: (data.user as any).id,
+                userId: data.user.id,
             });
 
             setSheetIsOpen(false);
