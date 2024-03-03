@@ -21,6 +21,8 @@ const SideMenu = () => {
     }
     const handleLoginClick = () => signIn("google")
 
+    console.log(data?.user.role)
+
     return (
         <>
             <SheetHeader className="text-left border-b border-solid border-secondary p-5">
@@ -86,6 +88,7 @@ const SideMenu = () => {
                         </Link>
                     </Button>
                 )}
+                
                 {data?.user.role === 'admin' && (
                     <Button variant="outline" className="justify-start" asChild>
                         <Link href="/users">
