@@ -49,7 +49,7 @@ const BookingPage = async () => {
 
                 {confirmedBookings.length > 0 && (
                     <>
-                        <h2 className="text-gray-400 uppercase font-bold text-sm">Confirmados</h2>
+                        <h2 className="text-gray-400 uppercase font-bold text-sm mb-3">Confirmados</h2>
                         <div className="flex flex-col gap-3">
                             {confirmedBookings.map((booking) => (
                                 <BookingItem key={booking.id} booking={booking} />
@@ -68,9 +68,7 @@ const BookingPage = async () => {
                             ))}
                         </div>
                     </>
-                )}
-
-               
+                )}               
             </div>
         </>
     );
