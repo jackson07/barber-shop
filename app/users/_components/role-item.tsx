@@ -12,7 +12,6 @@ interface RoleItemProps {
     user: User
 }
 
-
 const RoleItem = ({ user }: RoleItemProps) => {
     const [updateIsLoading, setUpdateIsLoading] = useState(false);
     const userRole = user.role ? user.role.toLowerCase() : "user";
@@ -21,10 +20,10 @@ const RoleItem = ({ user }: RoleItemProps) => {
         setUpdateIsLoading(true);
         try {
             await updateUser({userId: user.id, role: role})         
-            toast("Nível do usuário atualizada com sucesso!");    
+            toast("Usuário atualizado com sucesso!");    
         } catch (error) {
             console.error(error);
-            toast("Erro ao atualizar nível do usário!");    
+            toast("Erro ao atualizar usário!");    
         } finally {
             setUpdateIsLoading(false);
         }
