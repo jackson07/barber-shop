@@ -1,7 +1,7 @@
 "use client"
 
 import PhoneInfo from "@/app/_components/phone-info";
-import { adjustDate, getWeekdayName } from "@/app/_lib/utils";
+import { getWeekdayName } from "@/app/_lib/utils";
 import { Barbershop, OpeningHour } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -61,9 +61,9 @@ const InformationTab = ({ barbershop }: InformationTabProps) => {
                         <li key={hour.id} className="flex justify-between py-2" >
                             <span className="font-semibold text-gray-400 uppercase text-xs">{getWeekdayName(hour.day)}</span>
                             <span>
-                                {format(adjustDate(hour.dateStart.toISOString()), "HH:mm", {
+                                {format(hour.dateStart.toISOString(), "HH:mm", {
                                     locale: ptBR,
-                                })} - {format(adjustDate(hour.dateEnd.toISOString()), "HH:mm", {
+                                })} - {format(hour.dateEnd.toISOString(), "HH:mm", {
                                     locale: ptBR,
                                 })}
                             </span>
