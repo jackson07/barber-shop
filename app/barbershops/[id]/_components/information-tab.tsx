@@ -1,7 +1,7 @@
 "use client"
 
 import PhoneInfo from "@/app/_components/phone-info";
-import { adjustDate, getWeekdayName } from "@/app/_lib/utils";
+import { getWeekdayName } from "@/app/_lib/utils";
 import { Barbershop, OpeningHour } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -19,8 +19,8 @@ const InformationTab = ({ barbershop }: InformationTabProps) => {
 
     const phones = barbershop.phone?.split('/*/');
 
-    useEffect(() => {    
-        setLoadingHours(true);   
+    useEffect(() => {
+        setLoadingHours(true);
         const refreshOpeningsHours = async () => {
             const _openingHour = await getOpeningHours(barbershop.id);
 
@@ -50,20 +50,21 @@ const InformationTab = ({ barbershop }: InformationTabProps) => {
             <div className="px-5 flex flex-col gap-4 max-w-[500px] pb-5">
                 <h2 className="text-gray-400 uppercase text-xs font-bold">Horário de Funcionamento</h2>
                 <ul>
+
                     {loadingHours && (
-                    <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        <p className="text-gray-400 uppercase text-xs font-bold">Carregando Horários</p>
-                    </>
+                        <li className="flex items-center justify-center">
+                            <Loader2 className="mr-6 h-8 w-4 animate-spin" />
+                            <p className="text-gray-400 uppercase text-xs font-bold">Carregando Horários</p>
+                        </li>
                     )
                     }
                     {openingHours.map(hour => (
                         <li key={hour.id} className="flex justify-between py-2" >
                             <span className="font-semibold text-gray-400 uppercase text-xs">{getWeekdayName(hour.day)}</span>
                             <span>
-                                {format(adjustDate(hour.dateStart.toISOString()), "HH:mm", {
+                                {format(hour.dateStart.toISOString(), "HH:mm", {
                                     locale: ptBR,
-                                })} - {format(adjustDate(hour.dateEnd.toISOString()), "HH:mm", {
+                                })} - {format(hour.dateEnd.toISOString(), "HH:mm", {
                                     locale: ptBR,
                                 })}
                             </span>
