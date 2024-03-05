@@ -229,7 +229,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                                         <SheetFooter>
                                             <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
                                                 {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                                Confirmar Reserva
+                                                Confirmar Agendamento
                                             </Button>
                                         </SheetFooter>
                                     </div>
