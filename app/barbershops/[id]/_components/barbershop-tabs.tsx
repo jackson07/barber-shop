@@ -17,7 +17,7 @@ interface BarbershopTabsProps {
 
 const BarbershopTabs = ({barbershop,barbershopTable,IsAuthenticated}:BarbershopTabsProps) => {
     return (
-        <Tabs defaultValue="information" className="py-4">
+        <Tabs defaultValue="services" className="py-4">
             <TabsList className="flex justify-start bg-default text-white px-5">
                 <TabsTrigger value="services">Serviços</TabsTrigger>
                 <TabsTrigger value="information">Informações</TabsTrigger>
