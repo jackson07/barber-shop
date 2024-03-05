@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Barber Shop",
-  description: "Serviços de barbearia. Faça sua reserva!",
+  description: "Serviços de barbearia. Faça já seu agendamento!",
 };
 
 export default function RootLayout({
