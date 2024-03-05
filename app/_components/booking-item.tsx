@@ -36,7 +36,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         try {
             await cancelBooking(booking.id);
 
-            toast.success("Reserva cancelada com sucesso!");
+            toast.success("Agendamento cancelado com sucesso!");
         } catch (error) {
             console.error(error);
         } finally {
@@ -85,7 +85,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
             <SheetContent className="px-0 overflow-y-auto [&::-webkit-scrollbar]:hidden">
                 <SheetHeader className="px-5 text-left pb-6 border-b border-solid border-secondary">
-                    <SheetTitle>Informações da Reserva</SheetTitle>
+                    <SheetTitle>Informações do Agendamento</SheetTitle>
                 </SheetHeader>
 
                 <div className="px-5">
@@ -134,13 +134,13 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                             <AlertDialogTrigger className="w-full">
                                 <Button disabled={!isBookingConfirm || isDeleteLoading} className="w-full" variant="destructive">
                                     {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    Cancelar Reserva
+                                    Cancelar Agendamento
                                 </Button>
                             </AlertDialogTrigger>
                             {isBookingConfirm &&
                                 <AlertDialogContent className="w-[90%]">
                                     <AlertDialogHeader>
-                                        <AlertDialogTitle>Deseja mesmo cancelar a reserva?</AlertDialogTitle>
+                                        <AlertDialogTitle>Deseja mesmo cancelar a Agendamento?</AlertDialogTitle>
                                         <AlertDialogDescription>
                                             Uma vez cancelada, não será possível reverter essa ação.
                                         </AlertDialogDescription>
