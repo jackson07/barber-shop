@@ -27,7 +27,7 @@ interface ServiceItemProps {
 const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps) => {
     const router = useRouter();
     const { data } = useSession();
-    const [isLoginLoading,setIsLoginLoading] = useState(false);
+    const [isLoginLoading, setIsLoginLoading] = useState(false);
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [hour, setHour] = useState<string | undefined>()
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
@@ -63,10 +63,10 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             toast("Necessário efetuar o login!");
             setIsLoginLoading(false);
         })
-        .catch((e) => {
-            console.error(e.message)
-        })
-        
+            .catch((e) => {
+                console.error(e.message)
+            })
+
         setSheetIsOpen(true);
 
         <SheetTrigger asChild>
@@ -74,7 +74,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         </SheetTrigger>
     }
 
-    const handleBookingSubmit = async () => {        
+    const handleBookingSubmit = async () => {
         setSubmitIsLoading(true);
         try {
             if (!hour || !date || !data?.user) {
@@ -106,6 +106,15 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             });
         } catch (error) {
             console.error(error);
+            let errorMessage = '';
+
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+
+            toast("Erro ao confirmar o agendamento, atualize a página ou refaça o login no menu.", {
+                description: errorMessage
+            });
         } finally {
             setSubmitIsLoading(false);
         }
@@ -225,7 +234,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                                                     setMinutes(setHours(date, Number(hour.split(":")[0])), Number(hour.split(":")[1])) : undefined,
                                             service: service
                                         }} />
-                                        
+
                                         <SheetFooter>
                                             <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
                                                 {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
