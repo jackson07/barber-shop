@@ -23,8 +23,8 @@ const BarbershopTabs = ({ barbershop, barbershopTable, IsAuthenticated }: Barber
                 <TabsTrigger value="services">Serviços</TabsTrigger>
                 <TabsTrigger value="information">Informações</TabsTrigger>
             </TabsList>
-            <TabsContent value="services" className="px-5">
-                <div className="flex justify-center">
+            <TabsContent value="services" className="p-5">
+                <div className="flex justify-start">
                     <ServiceCreate barbershopID={barbershop.id}/>
                 </div>
                 <div className="flex flex-col gap-4 py-6">
