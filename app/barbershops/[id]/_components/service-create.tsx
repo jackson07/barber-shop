@@ -39,6 +39,7 @@ const ServiceCreate = ({ barbershopID }: ServiceCreateProps) => {
                     <ServiceForm barbershopID={barbershopID} onClose={handleSheetClose}/>
                 </SheetDescription>
             </SheetContent>
+            
         </Sheet>
     );
 }

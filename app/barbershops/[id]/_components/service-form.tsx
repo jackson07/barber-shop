@@ -13,7 +13,7 @@ import { Loader2 } from "lucide-react"
 import useAuth from "@/app/_components/useAuth"
 
 interface ServiceFormProps {
-    barbershopID: string,   
+    barbershopID: string,
     onClose: () => void,
 }
 
@@ -44,10 +44,10 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
         },
     })
 
-    const { isAuthorized } = useAuth();   
+    const { isAuthorized } = useAuth();
     if (!isAuthorized) {
         return null;
-    };    
+    };
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
@@ -74,7 +74,7 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
             formData.append("photo", selectedFile as File);
             formData.append("barbershopId", barbershopID);
 
-            await SaveService({formData});
+            await SaveService({ formData });
 
             toast("Serviço cadastrado com sucesso!")
             setIsLoading(false);
@@ -138,13 +138,16 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
                 <FormItem>
                     <FormLabel>Imagem</FormLabel>
                     <FormControl>
-                        <Input type="file" onChange={handleFileChange} className="w-full"/>
+                        <Input type="file" onChange={handleFileChange} className="w-full" />
                     </FormControl>
                 </FormItem>
-                <Button type="submit" disabled={isLoading} className="w-full space-x-2">
-                    {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
-                    <span>Confirmar Cadastro</span>
-                </Button>
+                <div className="flex flex-row gap-3 mt-6">
+                    <Button type="button" className="w-full" variant="secondary" onClick={() => {onClose()}}>Voltar</Button>
+                    <Button type="submit" disabled={isLoading} className="w-full space-x-2">
+                        {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+                        {!isLoading && <span>Confirmar Cadastro</span>}
+                    </Button>
+                </div>
             </form>
         </Form>
     )
