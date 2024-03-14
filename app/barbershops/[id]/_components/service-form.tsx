@@ -142,7 +142,7 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
                     </FormControl>
                 </FormItem>
                 <div className="flex flex-row gap-3 mt-6">
-                    <Button type="button" className="w-full" variant="secondary" onClick={() => {onClose()}}>Voltar</Button>
+                    <Button type="button" className="w-full text-xs" variant="secondary" onClick={() => {onClose()}}>Voltar</Button>
                     <Button type="submit" disabled={isLoading} className="w-full space-x-2">
                         {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
                         {!isLoading && <span>Confirmar Cadastro</span>}
