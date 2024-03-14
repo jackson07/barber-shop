@@ -17,6 +17,7 @@ interface BarbershopTabsProps {
 }
 
 const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) => {    
+    const services = barbershop.services.filter(service => service.active === true);
     return (
         <Tabs defaultValue="services" className="py-4">
             <TabsList className="flex justify-start bg-default text-white px-5">
@@ -28,7 +29,7 @@ const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) =>
                     <ServiceCreate barbershopID={barbershop.id}/>
                 </div>
                 <div className="flex flex-col gap-4 py-6">
-                    {barbershop.services.map(service => (
+                    {services.map(service => (
                         <ServiceItem key={service.id} barbershop={barbershop} service={service} isAuthenticated={IsAuthenticated} />
                     ))}
                 </div>                

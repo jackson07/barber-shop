@@ -14,7 +14,7 @@ const BookingPage = async () => {
 
     const [confirmedBookings, finishedBookings] = await Promise.all([
         db.booking.findMany({
-            where: {
+            where: {                
                 userId: (session.user as any).id,
                 date: {
                     gte: new Date(),
