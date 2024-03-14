@@ -38,7 +38,7 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
     return (
         <div>
             <BarberShopInfo barbershop={barbershop} />
-            <BarbershopTabs barbershop={barbershop} barbershopTable={barbershop} IsAuthenticated={!!session?.user} />        
+            <BarbershopTabs barbershop={barbershop} IsAuthenticated={!!session?.user} />        
         </div >
     )
 
