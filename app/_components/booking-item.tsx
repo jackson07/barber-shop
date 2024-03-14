@@ -131,10 +131,10 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                         </SheetClose>
 
                         <AlertDialog>
-                            <AlertDialogTrigger className="w-full">
-                                <Button disabled={!isBookingConfirm || isDeleteLoading} className="w-full" variant="destructive">
+                            <AlertDialogTrigger>
+                                <Button disabled={!isBookingConfirm || isDeleteLoading} className="text-xs" variant="destructive">
                                     {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    Cancelar Agendamento
+                                    {!isDeleteLoading && "Cancelar Agendamento"}
                                 </Button>
                             </AlertDialogTrigger>
                             {isBookingConfirm &&
