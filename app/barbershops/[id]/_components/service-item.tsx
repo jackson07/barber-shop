@@ -33,6 +33,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
     const [sheetIsOpen, setSheetIsOpen] = useState(false);
     const [dayBookings, setDayBookings] = useState<Booking[]>([]);
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     useEffect(() => {
         if (!date) {
@@ -40,9 +41,13 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         }
 
         const refreshAvailableHours = async () => {
-            const _dayBookings = await getDayBookings(barbershop.id, date)
-
-            setDayBookings(_dayBookings);
+            setIsLoading(true);
+            try {
+                const _dayBookings = await getDayBookings(barbershop.id, date)
+                setDayBookings(_dayBookings);
+            } finally {
+                setIsLoading(false); 
+            }
         }
 
         refreshAvailableHours();
@@ -125,7 +130,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             return []
         }
 
-        return generateDayTimeList(date).filter(time => {
+        const days = generateDayTimeList(date).filter(time => {
             const timeHour = Number(time.split(":")[0])
             const timeMinutes = Number(time.split(":")[1])
 
@@ -140,81 +145,87 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             }
             return false
         })
-    }, [date, dayBookings])
 
-    return (
-        <Card>
-            <CardContent className="p-3 w-full">
-                <div className="flex gap-4 items-center w-full">
-                    <div className="relative min-h-[110px] max-h-[110px] min-w-[110px] max-w-[110px]">
-                        <Image
-                            className="rounded-lg"
-                            src={service.imageUrl}
-                            fill
-                            alt={service.name}
-                            style={{ objectFit: "contain" }}
-                        />
-                    </div>
-                    <div className="flex flex-col w-full">
-                        <h2 className="font-bold">{service.name}</h2>
-                        <p className="text-sm text-gray-400">{service.description}</p>
+    return days;
+}, [date, dayBookings])
 
-                        <div className="flex items-center justify-between mt-3 ">
-                            <p className="text-primary text-sm font-bold">{Intl.NumberFormat(
-                                "pt-BR", {
-                                style: "currency", currency: "BRL",
-                            }).format(Number(service.price))}</p>
+return (
+    <Card>
+        <CardContent className="p-3 w-full">
+            <div className="flex gap-4 items-center w-full">
+                <div className="relative min-h-[110px] max-h-[110px] min-w-[110px] max-w-[110px]">
+                    <Image
+                        className="rounded-lg"
+                        src={service.imageUrl}
+                        fill
+                        alt={service.name}
+                        style={{ objectFit: "contain" }}
+                    />
+                </div>
+                <div className="flex flex-col w-full">
+                    <h2 className="font-bold">{service.name}</h2>
+                    <p className="text-sm text-gray-400">{service.description}</p>
 
-                            <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
-                                <Button variant="secondary" onClick={handleBookingClick}>
-                                    {isLoginLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    Agendar
-                                </Button>
+                    <div className="flex items-center justify-between mt-3 ">
+                        <p className="text-primary text-sm font-bold">{Intl.NumberFormat(
+                            "pt-BR", {
+                            style: "currency", currency: "BRL",
+                        }).format(Number(service.price))}</p>
 
-                                <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
-                                    <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
-                                        <SheetTitle>
-                                            Fazer Reverva
-                                        </SheetTitle>
-                                    </SheetHeader>
+                        <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
+                            <Button variant="secondary" onClick={handleBookingClick}>
+                                {isLoginLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                Agendar
+                            </Button>
 
-                                    <div className="py-6">
-                                        <Calendar
-                                            mode="single"
-                                            selected={date}
-                                            onSelect={handleDateClick}
-                                            locale={ptBR}
-                                            fromDate={addDays(new Date(), 1)}
-                                            styles={{
-                                                head_cell: {
-                                                    width: "100%",
-                                                    textTransform: "capitalize",
-                                                },
-                                                cell: {
-                                                    width: "100%",
-                                                },
-                                                button: {
-                                                    width: "100%",
-                                                },
-                                                nav_button_previous: {
-                                                    width: "32px",
-                                                    height: "32px",
-                                                },
-                                                nav_button_next: {
-                                                    width: "32px",
-                                                    height: "32px",
-                                                },
-                                                caption: {
-                                                    textTransform: "capitalize",
-                                                }
-                                            }}
-                                        />
-                                    </div>
+                            <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
+                                <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
+                                    <SheetTitle>
+                                        Fazer Reverva
+                                    </SheetTitle>
+                                </SheetHeader>
 
-                                    {date && (
-                                        <div className="flex overflow-x-auto py-6 px-5 border-t 
-                                                        border-solid border-secondary 
-                                                        [&::-webkit-scrollbar]:hidden gap-3">
+                                <div className="py-6">
+                                    <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={handleDateClick}
+                                        locale={ptBR}
+                                        fromDate={addDays(new Date(), 1)}
+                                        styles={{
+                                            head_cell: {
+                                                width: "100%",
+                                                textTransform: "capitalize",
+                                            },
+                                            cell: {
+                                                width: "100%",
+                                            },
+                                            button: {
+                                                width: "100%",
+                                            },
+                                            nav_button_previous: {
+                                                width: "32px",
+                                                height: "32px",
+                                            },
+                                            nav_button_next: {
+                                                width: "32px",
+                                                height: "32px",
+                                            },
+                                            caption: {
+                                                textTransform: "capitalize",
+                                            }
+                                        }}
+                                    />
+                                </div>
+
+                                {date && (
+                                    isLoading ?
+                                        <div className="flex items-center justify-center border-t border-solid border-secondary">
+                                            <Loader2 className="h-8 w-8 animate-spin m-4" />
+                                        </div>
+                                        : <div className="flex overflow-x-auto py-6 px-5 border-t 
+                                                            border-solid border-secondary 
+                                                            [&::-webkit-scrollbar]:hidden gap-3">
                                             {timeList.map((time) => (
                                                 <Button variant={
                                                     hour === time ? 'default' : 'outline'
@@ -223,33 +234,34 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                                                 </Button>
                                             ))}
                                         </div>
-                                    )}
 
-                                    <div className="py-6 px-5 border-t border-solid-border-secondary gap-3 flex flex-col">
-                                        <BookingInfo booking={{
-                                            barbershop: barbershop,
-                                            date:
-                                                date &&
-                                                    hour ?
-                                                    setMinutes(setHours(date, Number(hour.split(":")[0])), Number(hour.split(":")[1])) : undefined,
-                                            service: service
-                                        }} />
+                                )}
 
-                                        <SheetFooter>
-                                            <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
-                                                {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                                Confirmar Agendamento
-                                            </Button>
-                                        </SheetFooter>
-                                    </div>
-                                </SheetContent>
-                            </Sheet>
-                        </div>
+                                <div className="py-6 px-5 border-t border-solid-border-secondary gap-3 flex flex-col">
+                                    <BookingInfo booking={{
+                                        barbershop: barbershop,
+                                        date:
+                                            date &&
+                                                hour ?
+                                                setMinutes(setHours(date, Number(hour.split(":")[0])), Number(hour.split(":")[1])) : undefined,
+                                        service: service
+                                    }} />
+
+                                    <SheetFooter>
+                                        <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
+                                            {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                            Confirmar Agendamento
+                                        </Button>
+                                    </SheetFooter>
+                                </div>
+                            </SheetContent>
+                        </Sheet>
                     </div>
                 </div>
-            </CardContent>
-        </Card>
-    );
+            </div>
+        </CardContent>
+    </Card>
+);
 }
 
 export default ServiceItem;
