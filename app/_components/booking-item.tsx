@@ -148,7 +148,6 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                                     <AlertDialogFooter className="flex-row gap-3">
                                         <AlertDialogCancel className="w-full gap-3 mt-0">Voltar</AlertDialogCancel>
                                         <AlertDialogAction onClick={handleCancelClick} className="w-full gap-3">
-                                            {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                             Confirmar
                                         </AlertDialogAction>
                                     </AlertDialogFooter>
