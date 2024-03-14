@@ -2,21 +2,21 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/_components/ui/tabs";
 import ServiceItem from "./service-item";
-import { Barbershop, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import InformationTab from "./information-tab";
 import ServiceCreate from "./service-create";
 
 interface BarbershopTabsProps {
     barbershop: Prisma.BarbershopGetPayload<{
         include: {
+            openingHour: true,
             services: true,
         }
     }>
-    barbershopTable: Barbershop
     IsAuthenticated: boolean
 }
 
-const BarbershopTabs = ({ barbershop, barbershopTable, IsAuthenticated }: BarbershopTabsProps) => {    
+const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) => {    
     return (
         <Tabs defaultValue="services" className="py-4">
             <TabsList className="flex justify-start bg-default text-white px-5">
@@ -34,7 +34,7 @@ const BarbershopTabs = ({ barbershop, barbershopTable, IsAuthenticated }: Barber
                 </div>                
             </TabsContent>
             <TabsContent value="information">
-                <InformationTab barbershop={barbershopTable} />
+                <InformationTab barbershop={barbershop} />
             </TabsContent>
         </Tabs>
     );
