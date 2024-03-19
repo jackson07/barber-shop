@@ -11,13 +11,16 @@ interface BarbershopTabsProps {
         include: {
             openingHour: true,
             services: true,
-        }
+        },
     }>
     IsAuthenticated: boolean
 }
 
-const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) => {    
-    const services = barbershop.services.filter(service => service.active === true);
+const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) => {
+    const services = barbershop.services
+        .filter(service => service.active === true)
+        .sort((a, b) => a.name.localeCompare(b.name));
+
     return (
         <Tabs defaultValue="services" className="py-4">
             <TabsList className="flex justify-start bg-default text-white px-5">
@@ -26,13 +29,13 @@ const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) =>
             </TabsList>
             <TabsContent value="services" className="p-5">
                 <div className="flex justify-start">
-                    <ServiceCreate barbershopID={barbershop.id}/>
+                    <ServiceCreate barbershopID={barbershop.id} />
                 </div>
                 <div className="flex flex-col gap-4 py-6">
                     {services.map(service => (
                         <ServiceItem key={service.id} barbershop={barbershop} service={service} isAuthenticated={IsAuthenticated} />
                     ))}
-                </div>                
+                </div>
             </TabsContent>
             <TabsContent value="information">
                 <InformationTab barbershop={barbershop} />
