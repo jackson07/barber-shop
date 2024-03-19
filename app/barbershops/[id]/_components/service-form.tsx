@@ -11,37 +11,27 @@ import { SaveService } from "../_actions/save-service"
 import { ChangeEvent, useState } from "react"
 import { Loader2 } from "lucide-react"
 import useAuth from "@/app/_components/useAuth"
+import { Service } from "@prisma/client"
+import { Textarea } from "@/app/_components/ui/textarea"
+import { UpdateService } from "../_actions/update-service"
+import { FormSchema } from "../_models/serice-model"
 
 interface ServiceFormProps {
     barbershopID: string,
+    service: Service | null
     onClose: () => void,
 }
 
-const FormSchema = z.object({
-    serviceName: z.string().min(2, {
-        message: "O nome do serviço deve ter pelo menos 2 caracteres.",
-    }),
-    description: z.string().min(2, {
-        message: "A descrição deve ter pelo menos 2 caracteres.",
-    }),
-    price: z
-        .string()
-        .refine(value => !isNaN(parseFloat(value)), {
-            message: "O preço deve ser maior que 0.",
-        })
-        .transform(value => parseFloat(value)),
-})
-
-const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
+const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            serviceName: "",
-            description: "",
-            price: 0,
-        },
+            serviceName: service?.name || "",
+            description: service?.description || "",
+            price: service?.price !== undefined ? Number(service.price.toString()) : 0.0
+        }
     })
 
     const { isAuthorized } = useAuth();
@@ -57,26 +47,54 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
     };
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
-        if (!selectedFile) {
+        if (!selectedFile && !service?.id) {
             toast("Erro ao cadastrar o serviço.", {
                 description: "Necessário selecionar uma imagem."
             });
-
             return;
         };
 
         try {
             setIsLoading(true);
             const formData = new FormData();
+            formData.append("id", service?.id || "");
             formData.append("name", data.serviceName);
             formData.append("description", data.description);
             formData.append("price", String(data.price));
             formData.append("photo", selectedFile as File);
             formData.append("barbershopId", barbershopID);
 
-            await SaveService({ formData });
+            if (!service?.id) {
+                try {
+                    await SaveService({ formData });
+                    toast("Serviço cadastrado com sucesso!")
+                } catch (error) {
+                    console.error("Erro ao cadastrar o serviço:", error);
+                    let errorMessage = '';
 
-            toast("Serviço cadastrado com sucesso!")
+                    if (error instanceof Error) {
+                        errorMessage = error.message;
+                    }
+                    toast("Erro ao confirmar o agendamento, atualize a página ou refaça o login no menu.", {
+                        description: errorMessage
+                    });
+                }
+            } else {
+                try {
+                    await UpdateService({ formData });
+                    toast("Serviço atualizado com sucesso!")
+                } catch (error) {
+                    console.error("Erro ao atualizar o serviço:", error);
+                    let errorMessage = '';
+
+                    if (error instanceof Error) {
+                        errorMessage = error.message;
+                    }
+                    toast("Erro ao atualizar o agendamento, atualize a página ou refaça o login no menu.", {
+                        description: errorMessage
+                    });
+                }
+            }
             setIsLoading(false);
             onClose();
         } catch (error) {
@@ -115,8 +133,8 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Descrição</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Descrição" {...field} />
+                            <FormControl >
+                                <Textarea className="h-36 resize-y text-wrap" placeholder="Descrição" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -129,20 +147,22 @@ const ServiceForm = ({ barbershopID, onClose }: ServiceFormProps) => {
                         <FormItem>
                             <FormLabel>Preço</FormLabel>
                             <FormControl>
-                                <Input type="number" placeholder="Preço" {...field} />
+                                <Input type="number" placeholder="Preço" {...field} step="0.01" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <FormItem>
-                    <FormLabel>Imagem</FormLabel>
-                    <FormControl>
-                        <Input type="file" onChange={handleFileChange} className="w-full" />
-                    </FormControl>
-                </FormItem>
+                {!service?.imageUrl &&
+                    <FormItem>
+                        <FormLabel>Imagem</FormLabel>
+                        <FormControl>
+                            <Input type="file" onChange={handleFileChange} className="w-full" />
+                        </FormControl>
+                    </FormItem>
+                }
                 <div className="flex flex-row gap-3 mt-6">
-                    <Button type="button" className="w-full text-xs" variant="secondary" onClick={() => {onClose()}}>Voltar</Button>
+                    <Button type="button" className="w-full text-xs" variant="secondary" onClick={() => { onClose() }}>Voltar</Button>
                     <Button type="submit" disabled={isLoading} className="w-full space-x-2">
                         {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
                         {!isLoading && <span>Confirmar Cadastro</span>}
