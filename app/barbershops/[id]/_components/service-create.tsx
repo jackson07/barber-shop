@@ -36,7 +36,7 @@ const ServiceCreate = ({ barbershopID }: ServiceCreateProps) => {
                     </SheetTitle>
                 </SheetHeader>
                 <SheetDescription className="px-5 my-4">
-                    <ServiceForm barbershopID={barbershopID} onClose={handleSheetClose}/>
+                    <ServiceForm barbershopID={barbershopID} onClose={handleSheetClose} service={null}/>
                 </SheetDescription>
             </SheetContent>
             
