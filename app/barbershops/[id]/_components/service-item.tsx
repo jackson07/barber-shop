@@ -18,6 +18,7 @@ import { toast } from "sonner"
 import { getDayBookings } from "../_actions/get-day-bookings";
 import BookingInfo from "@/app/_components/booking-info";
 import ServiceDelete from "./service-delete";
+import ServiceUpdate from "./service-update";
 
 interface ServiceItemProps {
     barbershop: Barbershop;
@@ -111,7 +112,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                 },
             });
         } catch (error) {
-            console.error(error);
+            console.error("Erro ao cadastrar o agendamento:", error);
             let errorMessage = '';
 
             if (error instanceof Error) {
@@ -186,6 +187,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                                 </Button>
                             </div>
 
+                            <ServiceUpdate barbershopID={barbershop.id} service={service} />
                             <ServiceDelete service={service} />
 
                             <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
