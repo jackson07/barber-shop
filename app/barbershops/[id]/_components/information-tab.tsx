@@ -1,11 +1,11 @@
 "use client"
 
-import PhoneInfo from "@/app/_components/phone-info";
 import { getWeekdayName } from "@/app/_lib/utils";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import BarbershopDescription from "./barbershop-description";
+import PhoneInformation from "./phone-information";
 
 interface InformationTabProps {
     barbershop: Prisma.BarbershopGetPayload<{
@@ -15,20 +15,14 @@ interface InformationTabProps {
     }>
 }
 
-const InformationTab = ({ barbershop }: InformationTabProps) => {
-    const phones = barbershop.phone?.split('/*/');
+const InformationTab = ({ barbershop }: InformationTabProps) => {    
     const openingHours = barbershop.openingHour;
 
     return (
         <div className="flex flex-col gap-4">
             <BarbershopDescription barbershop={barbershop} />
 
-            <div className="px-5 pb-4 border-b border-solid border-secondary">
-                {phones && phones.map((phone, index) => (
-                    <div key={index}>
-                        <PhoneInfo phone={phone} />
-                    </div>))}
-            </div>
+            <PhoneInformation barbershop={barbershop} />
 
             <div className="px-5 flex flex-col gap-4 max-w-[500px] pb-5">
                 <h2 className="text-gray-400 uppercase text-xs font-bold">Horário de Funcionamento</h2>

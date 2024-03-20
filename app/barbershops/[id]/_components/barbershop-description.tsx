@@ -5,7 +5,7 @@ import { Textarea } from "@/app/_components/ui/textarea";
 import { Barbershop } from "@prisma/client";
 import { Edit2, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { UpdateDescriptionBarbershop } from "../_actions/update-barbershop";
+import { UpdateBarbershop } from "../_actions/update-barbershop";
 import { toast } from "sonner";
 import useAuth from "@/app/_components/useAuth";
 
@@ -27,7 +27,7 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
         formData.append("description", newDescription);
 
         try {
-            await UpdateDescriptionBarbershop({ formData });
+            await UpdateBarbershop({ formData });
             toast("Descrição alterada com sucesso!")
             setEditDescription(false);
 
@@ -67,14 +67,15 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
                         />
                         <div className="w-full h-10 flex gap-2 pt-4 mb-4">
                             <Button variant="default" className="w-full" onClick={handleConfirmEdit}>
-                                {isLoading ? <Loader2 className="h-4 w-4 animate-spin"/> :
+                                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> :
                                     "Confirmar"}
                             </Button>
                             <Button variant="secondary" className="w-full" onClick={() => { setEditDescription(!editDescription) }}>
                                 Cancelar
                             </Button>
                         </div>
-                    </> :
+                    </>
+                    :
                     barbershop.description
                 }
             </div>
