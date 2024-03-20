@@ -55,15 +55,9 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
             {phones && phones.map((phone, index) => (
                 <div key={index}>
                     <PhoneInfo phone={phone} />
+
                 </div>))}
-            {!editPhone &&
-                <div className="flex justify-end">
-                    <Button variant="ghost" className="p-0 h-[8px]" onClick={() => { setEditPhone(!editPhone) }}>
-                        <PlusCircleIcon size={16} />
-                    </Button>
-                </div>
-            }
-            {editPhone &&
+            {editPhone ?
                 <div>
                     <Input
                         type="text"
@@ -85,6 +79,12 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
                         </Button>
                     </div>
 
+                </div>
+                :
+                <div className="flex justify-end">
+                    <Button variant="ghost" className="p-0 h-[8px]" onClick={() => { setEditPhone(!editPhone) }}>
+                        <PlusCircleIcon size={16} />
+                    </Button>
                 </div>
             }
         </div>
