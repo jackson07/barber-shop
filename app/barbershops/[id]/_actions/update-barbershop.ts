@@ -19,8 +19,6 @@ export const UpdateBarbershop = async (params: UpdateBarbershopParams) => {
         });
     }
 
-    console.log("foneee", phone)
-
     if (phone !== null) {
         await db.barbershop.update({
             where: { id },

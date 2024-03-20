@@ -13,7 +13,6 @@ interface PhoneInformationProps {
     barbershop: Barbershop
 }
 
-
 const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [editPhone, setEditPhone] = useState<Boolean>(false);
@@ -23,7 +22,6 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
     const handleConfirmEdit = async () => {
         setIsLoading(true);
         const valuePhone = newPhone;
-        // const maskPhone = valuePhone.replace(/\D/g, '');
         const maskedPhoneNumber = valuePhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
 
         const formData = new FormData();
@@ -32,7 +30,7 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
 
         try {
             await UpdateBarbershop({ formData });
-            toast("Telefone cadastrar com sucesso!")
+            toast("Telefone cadastrado com sucesso!")
             setEditPhone(false);
             setNewPhone("");
         } catch (error) {
@@ -60,13 +58,14 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
             {editPhone ?
                 <div>
                     <Input
-                        type="text"
+                        type="tel"
+                        pattern="[0-9]*"
                         placeholder="DDD+Número (somente números)"
                         maxLength={11}
                         value={newPhone}
                         onChange={(e) => {
-                            const phone = e.target.value.replace(/\D/g, '');;
-                            setNewPhone(phone);
+                            const phone = e.target.value.replace(/\D/g, '');
+                            setNewPhone(phone.slice(0, 11));
                         }}
                     />
                     <div className="w-full h-10 flex gap-2 pt-4 mb-4">
