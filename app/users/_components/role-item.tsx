@@ -20,10 +20,10 @@ const RoleItem = ({ user }: RoleItemProps) => {
         setUpdateIsLoading(true);
         try {
             await updateUser({userId: user.id, role: role})         
-            toast("Usuário atualizado com sucesso!");    
+            toast.success("Usuário atualizado com sucesso!");    
         } catch (error) {
             console.error(error);
-            toast("Erro ao atualizar usário!");    
+            toast.error("Erro ao atualizar usário!");    
         } finally {
             setUpdateIsLoading(false);
         }

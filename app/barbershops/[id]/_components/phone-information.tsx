@@ -31,7 +31,7 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
 
     const handleConfirmEdit = async () => {
         if (newPhone.length != 11) {
-            toast("O número informado é inválido!", {
+            toast.error("O número informado é inválido!", {
                 description: "Necessário informar um numero com 11 caracteres."
             })
             return;
@@ -47,7 +47,7 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
 
         try {
             await UpdateBarbershop({ formData });
-            toast("Telefone cadastrado com sucesso!")
+            toast.success("Telefone cadastrado com sucesso!")
             setEditPhone(false);
             setNewPhone("");
         } catch (error) {
@@ -58,7 +58,7 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
                 errorMessage = error.message;
             }
 
-            toast("Erro ao cadastrar o telefone, atualize a página ou refaça o login no menu.", {
+            toast.error("Erro ao cadastrar o telefone, atualize a página ou refaça o login no menu.", {
                 description: errorMessage
             });
         }

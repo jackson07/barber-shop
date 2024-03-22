@@ -28,7 +28,7 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
 
         try {
             await UpdateBarbershop({ formData });
-            toast("Descrição alterada com sucesso!")
+            toast.success("Descrição alterada com sucesso!")
             setEditDescription(false);
 
         } catch (error) {
@@ -39,7 +39,7 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
                 errorMessage = error.message;
             }
 
-            toast("Erro ao alterar a descrição, atualize a página ou refaça o login no menu.", {
+            toast.error("Erro ao alterar a descrição, atualize a página ou refaça o login no menu.", {
                 description: errorMessage
             });
         }

@@ -34,7 +34,7 @@ const PhoneDelete = ({barbershop, phone}:PhoneDeleteProps) => {
         formData.append("phone", updatedPhoneList);
         try {
             await UpdateBarbershop({formData});
-            toast("Telefone excluído com sucesso!");   
+            toast.success("Telefone excluído com sucesso!");   
         } catch (error) {
             console.error("Erro ao excluir o telefone:", error);
             let errorMessage = '';
@@ -43,7 +43,7 @@ const PhoneDelete = ({barbershop, phone}:PhoneDeleteProps) => {
                 errorMessage = error.message;
             }
 
-            toast("Erro ao excluir o telefone, atualize a página ou refaça o login no menu.", {
+            toast.error("Erro ao excluir o telefone, atualize a página ou refaça o login no menu.", {
                 description: errorMessage
             });
         }

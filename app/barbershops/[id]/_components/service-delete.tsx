@@ -24,7 +24,7 @@ const ServiceDelete = ({ service }: ServiceDeleteProps) => {
     const handleDeleteServiceClick = async () => {
         setIsLoading(true);
         await deleteService({ serviceId: service.id });
-        toast("Serviço excluído com sucesso!");
+        toast.success("Serviço excluído com sucesso!");
         setIsLoading(false);
     }
 

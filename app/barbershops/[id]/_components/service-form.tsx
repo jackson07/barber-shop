@@ -48,7 +48,7 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         if (!selectedFile && !service?.id) {
-            toast("Erro ao cadastrar o serviço.", {
+            toast.error("Erro ao cadastrar o serviço.", {
                 description: "Necessário selecionar uma imagem."
             });
             return;
@@ -67,7 +67,7 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
             if (!service?.id) {
                 try {
                     await SaveService({ formData });
-                    toast("Serviço cadastrado com sucesso!")
+                    toast.success("Serviço cadastrado com sucesso!")
                 } catch (error) {
                     console.error("Erro ao cadastrar o serviço:", error);
                     let errorMessage = '';
@@ -75,14 +75,14 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
                     if (error instanceof Error) {
                         errorMessage = error.message;
                     }
-                    toast("Erro ao confirmar o agendamento, atualize a página ou refaça o login no menu.", {
+                    toast.error("Erro ao confirmar o agendamento, atualize a página ou refaça o login no menu.", {
                         description: errorMessage
                     });
                 }
             } else {
                 try {
                     await UpdateService({ formData });
-                    toast("Serviço atualizado com sucesso!")
+                    toast.success("Serviço atualizado com sucesso!")
                 } catch (error) {
                     console.error("Erro ao atualizar o serviço:", error);
                     let errorMessage = '';
@@ -90,7 +90,7 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
                     if (error instanceof Error) {
                         errorMessage = error.message;
                     }
-                    toast("Erro ao atualizar o agendamento, atualize a página ou refaça o login no menu.", {
+                    toast.error("Erro ao atualizar o agendamento, atualize a página ou refaça o login no menu.", {
                         description: errorMessage
                     });
                 }
@@ -105,7 +105,7 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
                 errorMessage = error.message;
             }
 
-            toast("Erro ao cadastrar o serviço.", {
+            toast.error("Erro ao cadastrar o serviço.", {
                 description: errorMessage
             })
         }

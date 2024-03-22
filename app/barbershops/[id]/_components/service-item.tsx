@@ -67,7 +67,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     const handleBookingClick = async () => {
         setIsLoginLoading(!isAuthenticated);
         if (!isAuthenticated) await signIn("google").then(() => {
-            toast("Necessário efetuar o login!");
+            toast.error("Necessário efetuar o login!");
             setIsLoginLoading(false);
         })
             .catch((e) => {
@@ -102,7 +102,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             setSheetIsOpen(false);
             setHour(undefined);
             setDate(undefined);
-            toast("Agendamento realizado com sucesso!", {
+            toast.success("Agendamento realizado com sucesso!", {
                 description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
                     locale: ptBR,
                 }),
@@ -119,7 +119,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                 errorMessage = error.message;
             }
 
-            toast("Erro ao confirmar o agendamento, atualize a página ou refaça o login no menu.", {
+            toast.error("Erro ao confirmar o agendamento, atualize a página ou refaça o login no menu.", {
                 description: errorMessage
             });
         } finally {
