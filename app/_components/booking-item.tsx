@@ -44,7 +44,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         }
     };
 
-    const phones = booking.barbershop.phone?.split('/*/');    
+    const phones = booking.barbershop.phone?.split('/');    
 
     return (
         <Sheet>
@@ -125,15 +125,15 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                         <PhoneInfo phone={phone}/>
                     </div>))}
 
-                    <SheetFooter className="flex-row gap-3 mt-6">
+                    <SheetFooter className="flex-row gap-3 mt-4">
                         <SheetClose className="w-full">
-                            <Button className="text-xs" variant="secondary">Voltar</Button>
+                            <Button className="text-xs w-full" variant="secondary">Voltar</Button>
                         </SheetClose>
 
                         <AlertDialog>
                             <AlertDialogTrigger>
-                                <Button disabled={!isBookingConfirm || isDeleteLoading} className="text-xs" variant="destructive">
-                                    {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                <Button disabled={!isBookingConfirm || isDeleteLoading} className="text-xs p-2" variant="destructive">
+                                    {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                                     {!isDeleteLoading && "Cancelar Agendamento"}
                                 </Button>
                             </AlertDialogTrigger>
