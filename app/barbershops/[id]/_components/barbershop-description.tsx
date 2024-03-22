@@ -48,7 +48,7 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
 
     return (
         <div className="px-5 py-4 border-b flex flex-col gap-2 border-solid border-secondary">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
                 <p className="text-gray-400 uppercase text-xs font-bold">Sobre nós</p>
                 {isAuthorized && !editDescription &&
                     <Button className="p-0 h-[8px]" variant="ghost" onClick={() => { setEditDescription(!editDescription) }}>
