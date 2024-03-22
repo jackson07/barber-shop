@@ -8,6 +8,8 @@ import { Loader2, PlusCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { UpdateBarbershop } from "../_actions/update-barbershop";
+import PhoneDelete from "./phone-delete";
+import useAuth from "@/app/_components/useAuth";
 
 interface PhoneInformationProps {
     barbershop: Barbershop
@@ -17,16 +19,31 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [editPhone, setEditPhone] = useState<Boolean>(false);
     const [newPhone, setNewPhone] = useState<string>("");
-    const phones = barbershop.phone?.split(',');
+
+    const { isAuthorized } = useAuth();
+
+    const phones = barbershop.phone?.split('/').filter(phone => phone.trim().length > 0);
+
+    const handleCancelClick = () => {
+        setEditPhone(!editPhone);
+        setNewPhone("");
+    }
 
     const handleConfirmEdit = async () => {
+        if (newPhone.length != 11) {
+            toast("O número informado é inválido!", {
+                description: "Necessário informar um numero com 11 caracteres."
+            })
+            return;
+        }
+
         setIsLoading(true);
         const valuePhone = newPhone;
         const maskedPhoneNumber = valuePhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
 
         const formData = new FormData();
         formData.append("id", barbershop.id);
-        formData.append("phone", maskedPhoneNumber +" , "+ barbershop.phone);
+        formData.append("phone", maskedPhoneNumber + "/" + barbershop.phone);
 
         try {
             await UpdateBarbershop({ formData });
@@ -50,13 +67,27 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
 
     return (
         <div className="px-5 pb-4 border-b border-solid border-secondary">
-            {phones && phones.map((phone, index) => (
-                <div key={index}>
-                    <PhoneInfo phone={phone} />
+            <div className="flex justify-between items-center">
+                <p className="text-gray-400 uppercase text-xs font-bold">Telefones para Contato</p>
+                {isAuthorized && !editPhone &&
+                    <Button variant="ghost" className="h-[8px] p-0" onClick={() => { setEditPhone(!editPhone) }}>
+                        <PlusCircleIcon size={14} />
+                    </Button>
+                }
+            </div>
+            {!(phones.length > 0) && !editPhone &&
+                <p className="text-gray-300 text-xs font-bold pt-4">Não possui telefone cadastrado.</p>
+            }
+            {phones &&
+                phones.map((phone, index) => (
+                    <div key={index} className="flex flex-row items-center justify-center gap-2 w-full h-full">
+                        <PhoneInfo phone={phone} />
+                        <PhoneDelete barbershop={barbershop} phone={phone} />
+                    </div>))
+            }
 
-                </div>))}
-            {editPhone ?
-                <div>
+            {editPhone &&
+                <div className="pt-4">
                     <Input
                         type="tel"
                         pattern="[0-9]*"
@@ -73,17 +104,11 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
                             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> :
                                 "Confirmar"}
                         </Button>
-                        <Button variant="secondary" className="w-full" onClick={() => { setEditPhone(!editPhone) }}>
+                        <Button variant="secondary" className="w-full" onClick={handleCancelClick}>
                             Cancelar
                         </Button>
                     </div>
 
-                </div>
-                :
-                <div className="flex justify-end">
-                    <Button variant="ghost" className="p-0 h-[8px]" onClick={() => { setEditPhone(!editPhone) }}>
-                        <PlusCircleIcon size={16} />
-                    </Button>
                 </div>
             }
         </div>
