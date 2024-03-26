@@ -62,7 +62,8 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
             formData.append("description", data.description);
             formData.append("price", String(data.price));
             formData.append("photo", selectedFile as File);
-            formData.append("barbershopId", barbershopID);
+            formData.append("photoName", selectedFile ? selectedFile?.name : '');
+            formData.append("barbershopId", barbershopID);            
 
             if (!service?.id) {
                 try {
