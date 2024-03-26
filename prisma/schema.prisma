@@ -58,8 +58,9 @@ model Barbershop {
   name        String
   address     String
   imageUrl    String
+  imageName   String?
   phone       String
-  description String
+  description String  
   bookings    Booking[]
   openingHour OpeningHour[]
   services    Service[]
@@ -83,6 +84,7 @@ model Service {
   description  String
   price        Decimal    @db.Decimal(10, 2)
   imageUrl     String
+  imageName    String?
   active       Boolean    @default(true)
   bookings     Booking[]
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
