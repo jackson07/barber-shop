@@ -188,7 +188,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                             </div>
 
                             <ServiceUpdate barbershopID={barbershop.id} service={service} />
-                            <ServiceDelete service={service} />
+                            <ServiceDelete barbershopID={barbershop.id} service={service} />
 
                             <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
                                 <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">

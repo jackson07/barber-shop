@@ -10,10 +10,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 interface ServiceDeleteProps {
-    service: Service
+    service: Service;
+    barbershopID: string;
 }
 
-const ServiceDelete = ({ service }: ServiceDeleteProps) => {
+const ServiceDelete = ({ service, barbershopID }: ServiceDeleteProps) => {
     const [isLoading, setIsLoading] = useState(false);
     
     const { isAuthorized } = useAuth();
@@ -21,9 +22,11 @@ const ServiceDelete = ({ service }: ServiceDeleteProps) => {
         return null;
     }
 
+    const image = service.imageName ? service.imageName : '';
+
     const handleDeleteServiceClick = async () => {
         setIsLoading(true);
-        await deleteService({ serviceId: service.id });
+        await deleteService({ serviceId: service.id, serviceImageName: image, barbershopID: barbershopID });
         toast.success("Serviço excluído com sucesso!");
         setIsLoading(false);
     }
