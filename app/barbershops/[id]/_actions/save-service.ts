@@ -13,8 +13,8 @@ export const SaveService = async (params: SaveServiceParams) => {
 	const description = params.formData.get("description") as string;
 	const price = Number(params.formData.get("price"));
 	const photo = params.formData.get("photo") as File;
+  const photoName = params.formData.get("photoName") as string;
   const barbershopId = params.formData.get("barbershopId") as string;
-
 
   await supabase()
     .storage
@@ -24,7 +24,7 @@ export const SaveService = async (params: SaveServiceParams) => {
 
   await supabase()
 			.storage.from(barbershopId)
-			.upload(photo.name, photo); 
+			.upload(photo.name, photo);
 
   const publicUrl = await supabase().storage
 			.from(barbershopId)
@@ -36,7 +36,8 @@ export const SaveService = async (params: SaveServiceParams) => {
       description: description,
       price: price,
       imageUrl: publicUrl.data.publicUrl, 
-      barbershopId: barbershopId,
+      imageName: photoName,
+      barbershopId: barbershopId,      
     },
   });
 
