@@ -21,8 +21,6 @@ const SideMenu = () => {
     }
     const handleLoginClick = () => signIn("google")
 
-    console.log(data?.user.role)
-
     return (
         <>
             <SheetHeader className="text-left border-b border-solid border-secondary p-5">
