@@ -1,10 +1,11 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/_components/ui/tabs";
-import ServiceItem from "./service-item";
+import ServiceItem from "../service/service-item";
 import { Prisma } from "@prisma/client";
-import InformationTab from "./information-tab";
-import ServiceCreate from "./service-create";
+import InformationTab from "../tabs/information-tab";
+import ServiceCreate from "../service/service-create";
+import ServicesTab from "../tabs/services-tab";
 
 interface BarbershopTabsProps {
     barbershop: Prisma.BarbershopGetPayload<{
@@ -13,10 +14,9 @@ interface BarbershopTabsProps {
             services: true,
         },
     }>
-    IsAuthenticated: boolean
 }
 
-const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) => {
+const BarbershopTabs = ({ barbershop }: BarbershopTabsProps) => {
     const services = barbershop.services
         .filter(service => service.active === true)
         .sort((a, b) => a.name.localeCompare(b.name));
@@ -28,14 +28,7 @@ const BarbershopTabs = ({ barbershop, IsAuthenticated }: BarbershopTabsProps) =>
                 <TabsTrigger value="information">Informações</TabsTrigger>
             </TabsList>
             <TabsContent value="services" className="p-5">
-                <div className="flex justify-start">
-                    <ServiceCreate barbershopID={barbershop.id} />
-                </div>
-                <div className="flex flex-col gap-4 py-6">
-                    {services.map(service => (
-                        <ServiceItem key={service.id} barbershop={barbershop} service={service} isAuthenticated={IsAuthenticated} />
-                    ))}
-                </div>
+                <ServicesTab barbershop={barbershop} service={services}/>
             </TabsContent>
             <TabsContent value="information">
                 <InformationTab barbershop={barbershop} />

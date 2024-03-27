@@ -4,8 +4,8 @@ import { getWeekdayName } from "@/app/_lib/utils";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import BarbershopDescription from "./barbershop-description";
-import PhoneInformation from "./phone-information";
+import BarbershopDescription from "../barbershop/barbershop-description";
+import PhoneInformation from "../phone/phone-information";
 
 interface InformationTabProps {
     barbershop: Prisma.BarbershopGetPayload<{

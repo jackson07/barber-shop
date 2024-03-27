@@ -5,7 +5,7 @@ import { Textarea } from "@/app/_components/ui/textarea";
 import { Barbershop } from "@prisma/client";
 import { Edit2, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { UpdateBarbershop } from "../_actions/update-barbershop";
+import { UpdateBarbershop } from "../../_actions/update-barbershop";
 import { toast } from "sonner";
 import useAuth from "@/app/_components/useAuth";
 

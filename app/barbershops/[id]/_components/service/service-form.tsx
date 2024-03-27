@@ -7,14 +7,14 @@ import { Button } from "@/app/_components/ui/button"
 import { Input } from "@/app/_components/ui/input"
 import { toast } from "sonner"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/app/_components/ui/form"
-import { SaveService } from "../_actions/save-service"
+import { SaveService } from "../../_actions/save-service"
 import { ChangeEvent, useState } from "react"
 import { Loader2 } from "lucide-react"
 import useAuth from "@/app/_components/useAuth"
 import { Service } from "@prisma/client"
 import { Textarea } from "@/app/_components/ui/textarea"
-import { UpdateService } from "../_actions/update-service"
-import { FormSchema } from "../_models/serice-model"
+import { UpdateService } from "../../_actions/update-service"
+import { FormSchema } from "../../_models/serice-model"
 
 interface ServiceFormProps {
     barbershopID: string,

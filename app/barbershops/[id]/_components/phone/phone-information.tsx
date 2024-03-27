@@ -7,7 +7,7 @@ import { Barbershop } from "@prisma/client";
 import { Loader2, PlusCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { UpdateBarbershop } from "../_actions/update-barbershop";
+import { UpdateBarbershop } from "../../_actions/update-barbershop";
 import PhoneDelete from "./phone-delete";
 import useAuth from "@/app/_components/useAuth";
 

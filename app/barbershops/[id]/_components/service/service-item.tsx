@@ -9,24 +9,24 @@ import { ptBR } from "date-fns/locale";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { generateDayTimeList } from "../_helper/hours";
+import { generateDayTimeList } from "../../_helper/hours";
 import { addDays, format, setHours, setMinutes } from "date-fns";
-import { saveBooking } from "../_actions/save-booking";
+import { saveBooking } from "../../_actions/save-booking";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner"
-import { getDayBookings } from "../_actions/get-day-bookings";
+import { getDayBookings } from "../../_actions/get-day-bookings";
 import BookingInfo from "@/app/_components/booking-info";
 import ServiceDelete from "./service-delete";
 import ServiceUpdate from "./service-update";
+import useAuth from "@/app/_components/useAuth";
 
 interface ServiceItemProps {
     barbershop: Barbershop;
     service: Service;
-    isAuthenticated: boolean;
 }
 
-const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps) => {
+const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     const router = useRouter();
     const { data } = useSession();
     const [isLoginLoading, setIsLoginLoading] = useState(false);
@@ -36,6 +36,8 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     const [sheetIsOpen, setSheetIsOpen] = useState(false);
     const [dayBookings, setDayBookings] = useState<Booking[]>([]);
     const [isLoading, setIsLoading] = useState<Boolean>(false);
+
+    const isAuthenticated = data?.user ? true : false;
 
     useEffect(() => {
         if (!date) {
@@ -53,7 +55,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         }
 
         refreshAvailableHours();
-    }, [date, barbershop.id])
+    }, [date, barbershop.id]);
 
     const handleDateClick = (date: Date | undefined) => {
         setDate(date);

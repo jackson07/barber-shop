@@ -5,7 +5,7 @@ import { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
 import { Loader2, Trash2 } from "lucide-react";
-import { UpdateBarbershop } from "../_actions/update-barbershop";
+import { UpdateBarbershop } from "../../_actions/update-barbershop";
 import { toast } from "sonner";
 import { Barbershop } from "@prisma/client";
 

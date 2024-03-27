@@ -4,7 +4,7 @@ import { Button } from "@/app/_components/ui/button";
 import useAuth from "@/app/_components/useAuth";
 import { Service } from "@prisma/client";
 import { Loader2, Trash2 } from "lucide-react";
-import { deleteService } from "../_actions/delete-service";
+import { deleteService } from "../../_actions/delete-service";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/app/_components/ui/alert-dialog";
 import { useState } from "react";
 import { toast } from "sonner";

@@ -1,9 +1,7 @@
 import { db } from "@/app/_lib/prisma";
-import BarberShopInfo from "./_components/barbershop-info";
+import BarberShopInfo from "./_components/barbershop/barbershop-info";
 import { redirect } from "next/navigation";
-import BarbershopTabs from "./_components/barbershop-tabs";
-import { authOption } from "@/app/_lib/auth";
-import { getServerSession } from "next-auth";
+import BarbershopTabs from "./_components/barbershop/barbershop-tabs";
 
 interface BarbershopDetailsPageProps {
     params: {
@@ -12,7 +10,6 @@ interface BarbershopDetailsPageProps {
 }
 
 const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
-    const session = await getServerSession(authOption) 
     if (!params.id) {
         return redirect('/')
     }
@@ -38,7 +35,7 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
     return (
         <div>
             <BarberShopInfo barbershop={barbershop} />
-            <BarbershopTabs barbershop={barbershop} IsAuthenticated={!!session?.user} />        
+            <BarbershopTabs barbershop={barbershop} />        
         </div >
     )
 
