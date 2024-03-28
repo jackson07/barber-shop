@@ -4,7 +4,7 @@ import { getWeekdayName } from "@/app/_lib/utils";
 import { OpeningHour } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Edit2, Save, X } from "lucide-react";
+import { Edit2, Loader2, Save, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { UpdateHours } from "../../_actions/update-hours";
@@ -27,10 +27,12 @@ const Hours = ({ hour }: HoursProps) => {
     const [editHour, setEditHour] = useState<Boolean>(false);
     const [newDateStart, setNewDateStart] = useState<Date>(hour.dateStart);
     const [newDateEnd, setNewDateEnd] = useState<Date>(hour.dateEnd);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { isAuthorized } = useAuth();
 
     const handleUpdateHourClick = async () => {
+        setIsLoading(true);
         try {
             await UpdateHours({
                 id: hour.id,
@@ -53,6 +55,7 @@ const Hours = ({ hour }: HoursProps) => {
                 description: errorMessage
             });
         }
+        setIsLoading(false);
     };
 
     const handleCancelClick = () => {
@@ -78,7 +81,8 @@ const Hours = ({ hour }: HoursProps) => {
                         onChange={(e) => setNewDateEnd(parseTimeInput(e.target.value))}
                     />
                     <Button className="p-0 pl-1" variant="ghost" onClick={handleUpdateHourClick}>
-                        <Save color="green" size={18} />
+                        {isLoading ? <Loader2 className="h-5 w-5 animate-spin" />
+                            : <Save color="green" size={18} />}
                     </Button>
                     <Button className="p-0 pl-1" variant="ghost" onClick={handleCancelClick}>
                         <X size={18} className="text-destructive" />
