@@ -182,7 +182,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                         </div>
 
                         <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
-                            <div className="w-full px-5">
+                            <div className="w-full">
                                 <Button variant="secondary" className="w-full" onClick={handleBookingClick}>
                                     {isLoginLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                     Agendar
