@@ -46,6 +46,11 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
         setIsLoading(false);
     };
 
+    const handleCancelClick = () => {
+        setEditDescription(!editDescription);
+        setNewDescription(barbershop.description);
+    }
+
     return (
         <div className="px-5 py-4 border-b flex flex-col gap-2 border-solid border-secondary">
             <div className="flex justify-between items-center">
@@ -70,7 +75,7 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
                                 {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> :
                                     "Confirmar"}
                             </Button>
-                            <Button variant="secondary" className="w-full" onClick={() => { setEditDescription(!editDescription) }}>
+                            <Button variant="secondary" className="w-full" onClick={handleCancelClick}>
                                 Cancelar
                             </Button>
                         </div>
