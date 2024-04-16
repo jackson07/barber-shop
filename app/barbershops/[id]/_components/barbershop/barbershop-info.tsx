@@ -6,6 +6,7 @@ import { Barbershop } from "@prisma/client";
 import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import BarbershopAddress from "./barbershop-address";
 
 interface BarberShopInfoProps {
     barbershop: Barbershop
@@ -61,14 +62,11 @@ const BarberShopInfo = ({barbershop}:BarberShopInfoProps) => {
                 <h1 className="text-xl font-bold">
                     {barbershop.name}
                 </h1>
-                <div className="flex items-center gap-1 mt-2">
-                    <MapPinIcon className="text-primary" size={18}/>
-                    <p className="text-sm">{barbershop.address}</p>
-                </div>
-                <div className="flex items-center gap-1 mt-2">
+                <BarbershopAddress  barbershop={barbershop}/>
+                {/* <div className="flex items-center gap-1 mt-2">
                     <StarIcon className="text-primary fill-primary" size={18}/>
                     <p className="text-sm">5,0 (899 avaliações)</p>
-                </div>
+                </div> */}
             </div>
         </div>
     );

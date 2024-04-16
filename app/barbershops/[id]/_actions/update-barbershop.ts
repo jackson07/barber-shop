@@ -11,6 +11,7 @@ export const UpdateBarbershop = async (params: UpdateBarbershopParams) => {
     const id = params.formData.get("id") as string;
     const description = params.formData.get("description") as string;
     const phone = params.formData.get("phone") as string;
+    const address = params.formData.get("address") as string;
 
     if (description !== null) {
         await db.barbershop.update({
@@ -23,6 +24,13 @@ export const UpdateBarbershop = async (params: UpdateBarbershopParams) => {
         await db.barbershop.update({
             where: { id },
             data: { phone },
+        });
+    }
+
+    if (address !== null) {
+        await db.barbershop.update({
+            where: { id },
+            data: { address },
         });
     }
 
