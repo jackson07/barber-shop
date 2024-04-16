@@ -19,7 +19,6 @@ import { getDayBookings } from "../../_actions/get-day-bookings";
 import BookingInfo from "@/app/_components/booking-info";
 import ServiceDelete from "./service-delete";
 import ServiceUpdate from "./service-update";
-import useAuth from "@/app/_components/useAuth";
 
 interface ServiceItemProps {
     barbershop: Barbershop;
