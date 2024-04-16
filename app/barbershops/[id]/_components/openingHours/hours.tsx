@@ -36,8 +36,7 @@ const Hours = ({ hour }: HoursProps) => {
         try {
             await UpdateHours({
                 id: hour.id,
-                barbershopId:
-                    hour.barbershopId,
+                barbershopId: hour.barbershopId,
                 day: hour.day,
                 dateStart: newDateStart,
                 dateEnd: newDateEnd,

@@ -1,10 +1,8 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/_components/ui/tabs";
-import ServiceItem from "../service/service-item";
 import { Prisma } from "@prisma/client";
 import InformationTab from "../tabs/information-tab";
-import ServiceCreate from "../service/service-create";
 import ServicesTab from "../tabs/services-tab";
 
 interface BarbershopTabsProps {

@@ -1,6 +1,5 @@
 "use client"
 
-import { getWeekdayName } from "@/app/_lib/utils";
 import { OpeningHour } from "@prisma/client";
 import Hours from "./hours";
 
