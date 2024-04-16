@@ -23,7 +23,7 @@ const InformationTab = ({ barbershop }: InformationTabProps) => {
 
             <PhoneInformation barbershop={barbershop} />
 
-            <OpeningHours openingHours={barbershop.openingHour} />
+            <OpeningHours openingHours={barbershop.openingHour} barbershopUserID={barbershop.userId as string}/>
         </div>
     );
 }

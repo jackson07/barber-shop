@@ -10,12 +10,13 @@ import { Service } from "@prisma/client";
 
 interface ServiceUpdateProps {
     barbershopID: string,
+    barbershopUserID: string,
     service: Service,
 }
 
-const ServiceUpdate = ({ barbershopID, service }: ServiceUpdateProps) => {
+const ServiceUpdate = ({ barbershopID, service, barbershopUserID }: ServiceUpdateProps) => {
     const [sheetIsOpen, setSheetIsOpen] = useState(false);
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershopUserID);
     if (!isAuthorized) {
         return null;
     }
@@ -39,7 +40,7 @@ const ServiceUpdate = ({ barbershopID, service }: ServiceUpdateProps) => {
                     </SheetTitle>
                 </SheetHeader>
                 <SheetDescription className="px-5 my-4">
-                    <ServiceForm barbershopID={barbershopID} service={service} onClose={handleSheetClose} />
+                    <ServiceForm barbershopID={barbershopID} barbershopUserID={barbershopUserID} service={service} onClose={handleSheetClose} />
                 </SheetDescription>
             </SheetContent>
 

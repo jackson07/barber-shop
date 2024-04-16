@@ -188,8 +188,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                                 </Button>
                             </div>
 
-                            <ServiceUpdate barbershopID={barbershop.id} service={service} />
-                            <ServiceDelete barbershopID={barbershop.id} service={service} />
+                            <ServiceUpdate barbershopID={barbershop.id} service={service} barbershopUserID={barbershop.userId as string}/>
+                            <ServiceDelete barbershopID={barbershop.id} service={service} barbershopUserID={barbershop.userId as string} />
 
                             <SheetContent className="p-0  overflow-y-auto [&::-webkit-scrollbar]:hidden">
                                 <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">

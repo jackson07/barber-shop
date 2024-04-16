@@ -21,7 +21,7 @@ interface PhoneDeleteProps {
 const PhoneDelete = ({barbershop, phone}:PhoneDeleteProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershop.userId);
     if (!isAuthorized) {
         return null;
     }  

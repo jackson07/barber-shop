@@ -11,7 +11,8 @@ import { UpdateHours } from "../../_actions/update-hours";
 import useAuth from "@/app/_components/useAuth";
 
 interface HoursProps {
-    hour: OpeningHour
+    hour: OpeningHour,
+    barbershopUserID: string,
 }
 
 const parseTimeInput = (value: string): Date => {
@@ -23,13 +24,13 @@ const parseTimeInput = (value: string): Date => {
     return date;
 }
 
-const Hours = ({ hour }: HoursProps) => {
+const Hours = ({ hour, barbershopUserID }: HoursProps) => {
     const [editHour, setEditHour] = useState<Boolean>(false);
     const [newDateStart, setNewDateStart] = useState<Date>(hour.dateStart);
     const [newDateEnd, setNewDateEnd] = useState<Date>(hour.dateEnd);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershopUserID);
 
     const handleUpdateHourClick = async () => {
         setIsLoading(true);

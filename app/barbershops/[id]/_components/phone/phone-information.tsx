@@ -20,7 +20,7 @@ const PhoneInformation = ({ barbershop }: PhoneInformationProps) => {
     const [editPhone, setEditPhone] = useState<Boolean>(false);
     const [newPhone, setNewPhone] = useState<string>("");
 
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershop.userId);
 
     const phones = barbershop.phone?.split('/').filter(phone => phone.trim().length > 0);
 

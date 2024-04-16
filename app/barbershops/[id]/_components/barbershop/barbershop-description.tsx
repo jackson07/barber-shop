@@ -18,7 +18,7 @@ const BarbershopDescription = ({ barbershop }: BarbershopDescriptionProps) => {
     const [editDescription, setEditDescription] = useState<Boolean>(false);
     const [newDescription, setNewDescription] = useState<string>(barbershop.description);
 
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershop.userId);
 
     const handleConfirmEdit = async () => {
         setIsLoading(true);

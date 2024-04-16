@@ -18,11 +18,12 @@ import { FormSchema } from "../../_models/serice-model"
 
 interface ServiceFormProps {
     barbershopID: string,
+    barbershopUserID: string,
     service: Service | null
     onClose: () => void,
 }
 
-const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
+const ServiceForm = ({ barbershopID, barbershopUserID, service, onClose }: ServiceFormProps) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -34,7 +35,7 @@ const ServiceForm = ({ barbershopID, service, onClose }: ServiceFormProps) => {
         }
     })
 
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershopUserID);
     if (!isAuthorized) {
         return null;
     };

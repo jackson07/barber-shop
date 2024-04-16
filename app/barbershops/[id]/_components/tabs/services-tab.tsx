@@ -11,7 +11,7 @@ const ServicesTab = ({barbershop, service}:ServicesTabProps) => {
     return (
         <>
             <div className="flex justify-start">
-                <ServiceCreate barbershopID={barbershop.id} />
+                <ServiceCreate barbershopID={barbershop.id} barbershopUserID={barbershop.userId as string} />
             </div>
             <div className="flex flex-col gap-4 py-6">
                 {service.map(service => (

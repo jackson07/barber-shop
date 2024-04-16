@@ -18,7 +18,7 @@ const BarbershopAddress = ({ barbershop }: BarbershopAddressProps) => {
     const [editAddress, setEditAddress] = useState<Boolean>(false);
     const [newAddress, setNewAddress] = useState<string>(barbershop.address);
 
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershop.userId);
 
     const handleConfirmEdit = async () => {
         setIsLoading(true);

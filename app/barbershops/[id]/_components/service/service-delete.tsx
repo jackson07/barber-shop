@@ -12,12 +12,13 @@ import { toast } from "sonner";
 interface ServiceDeleteProps {
     service: Service;
     barbershopID: string;
+    barbershopUserID: string;
 }
 
-const ServiceDelete = ({ service, barbershopID }: ServiceDeleteProps) => {
+const ServiceDelete = ({ service, barbershopID, barbershopUserID }: ServiceDeleteProps) => {
     const [isLoading, setIsLoading] = useState(false);
     
-    const { isAuthorized } = useAuth();
+    const { isAuthorized } = useAuth(barbershopUserID);
     if (!isAuthorized) {
         return null;
     }

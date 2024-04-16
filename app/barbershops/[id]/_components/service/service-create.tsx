@@ -8,11 +8,12 @@ import useAuth from "@/app/_components/useAuth";
 
 interface ServiceCreateProps {
     barbershopID: string,
+    barbershopUserID: string,
 }
 
-const ServiceCreate = ({ barbershopID }: ServiceCreateProps) => {
+const ServiceCreate = ({ barbershopID, barbershopUserID}: ServiceCreateProps) => {
     const [sheetIsOpen, setSheetIsOpen] = useState(false);
-    const { isAuthorized } = useAuth();   
+    const { isAuthorized } = useAuth(barbershopUserID);   
     if (!isAuthorized) {
         return null;
     }
@@ -36,7 +37,7 @@ const ServiceCreate = ({ barbershopID }: ServiceCreateProps) => {
                     </SheetTitle>
                 </SheetHeader>
                 <SheetDescription className="px-5 my-4">
-                    <ServiceForm barbershopID={barbershopID} onClose={handleSheetClose} service={null}/>
+                    <ServiceForm barbershopID={barbershopID} barbershopUserID={barbershopUserID} onClose={handleSheetClose} service={null}/>
                 </SheetDescription>
             </SheetContent>
             
